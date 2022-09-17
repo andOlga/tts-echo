@@ -4,6 +4,7 @@ const speechSynthesis = window.speechSynthesis
 
 let ssVoice = null // Currently-selected voice
 const sr = new SpeechRecognition()
+sr.lang = 'en-US'
 sr.continuous = true // Don't stop recognising speech until the user tells you to
 
 // Speech recognition
@@ -29,6 +30,7 @@ speechSynthesis.addEventListener('voiceschanged', event => {
   select.appendChild(originalOption)
   const voices = speechSynthesis.getVoices()
   for (const voice of voices) {
+    if (!voice.lang.startsWith('en-')) continue
     const option = document.createElement('option')
     option.value = voice.voiceURI
     option.innerText = voice.name
